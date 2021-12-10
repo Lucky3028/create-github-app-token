@@ -1,8 +1,0 @@
-{
-  "name": "create-github-app-token",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "Lucky3028 <lucky3028@users.noreply.github.com>",
-  "license": "MIT",
-  "private": true
-}
