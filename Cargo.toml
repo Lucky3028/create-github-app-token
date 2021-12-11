@@ -2,6 +2,9 @@
 name = "create-github-app-token"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+authors = ["Lucky3028 <lucky3028@users.noreply.github.com>"]
+description = "A Tool to create GitHub App token."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
