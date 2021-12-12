@@ -30,7 +30,7 @@ jobs:
       - name: Bump version
         run: |
           cargo install cargo-bump
-          cargo-bump ${{ steps.string.outputs.lowercase }}
+          cargo bump ${{ steps.string.outputs.lowercase }}
       - name: Set version
         id: ver
         run: |
