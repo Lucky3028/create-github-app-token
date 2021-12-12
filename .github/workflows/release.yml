@@ -20,7 +20,7 @@ jobs:
       - uses: ASzc/change-string-case-action@v1
         id: string
         with:
-          string: ${{ inputs.version }}
+          string: ${{ github.event.inputs.version }}
       - name: Validate version input
         run: |
           VERSIONS=("major" "minor" "patch")
