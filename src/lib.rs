@@ -86,7 +86,13 @@ async fn fetch_token(token: &str, url: &str) -> Result<Token> {
 ///
 /// ## Usage
 /// ```
-/// let token = crate::publish_token(123456, "/home/github/key.pem", "github").await?;
+/// use create_github_app_token::{errors::Error, publish_token, Token};
+///
+/// async fn fetcher() -> std::result::Result<Token, Error> {
+///     let token = publish_token(123456, "/home/github/key.pem", "github").await?;
+///
+///     Ok(token)
+/// }
 /// ```
 pub async fn publish_token<T>(
     app_id: usize,
