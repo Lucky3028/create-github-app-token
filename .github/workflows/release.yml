@@ -35,8 +35,8 @@ jobs:
         id: ver
         run: |
           REG="([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?"
-          OLD=git diff -- Cargo.toml | grep "\-version" | grep -oE $REG
-          NEW=git diff -- Cargo.toml | grep "\+version" | grep -oE $REG
+          OLD=$(git diff -- Cargo.toml | grep "\-version" | grep -oE $REG)
+          NEW=$(git diff -- Cargo.toml | grep "\+version" | grep -oE $REG)
           echo "::set-output name=OLD::$OLD"
           echo "::set-output name=NEW::$NEW"
       - name: Commit changes
