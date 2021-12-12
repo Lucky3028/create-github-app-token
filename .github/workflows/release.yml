@@ -24,7 +24,7 @@ jobs:
       - name: Validate version input
         run: |
           VERSIONS=("major" "minor" "patch")
-          if ! printf '%s\n' "${VERSIONS[@]}" | grep -vx "${{ steps.string.outputs.lowercase }}"; then
+          if ! printf '%s\n' "${VERSIONS[@]}" | grep -qx "${{ steps.string.outputs.lowercase }}"; then
             exit 1
           fi
       - name: Bump version
