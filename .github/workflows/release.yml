@@ -1,0 +1,51 @@
+name: Release
+on:
+  workflow_dispatch:
+    branches:
+      - main
+    inputs:
+      version:
+        required: true
+        default: "minor"
+
+env:
+  CARGO_INCREMENTAL: 0
+
+  jobs:
+    release:
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/main'
+      steps:
+        - uses: actions/checkout@v2
+        - uses: ASzc/change-string-case-action@v1
+          id: string
+          with:
+            string: ${{ inputs.version }}
+        - name: Validate version input
+          run: |
+            VERSIONS=("major" "minor" "patch")
+            if ! printf '%s\n' "${VERSIONS[@]}" | grep -vx ${{ steps.string.outputs.lowercase }}; then
+              exit 1
+            fi
+        - name: Bump version
+          run: |
+            cargo install cargo-bump
+            cargo-bump ${{ steps.string.outputs.lowercase }}
+        - name: Set version
+          id: ver
+          run: |
+            REG="([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?"
+            OLD=git diff -- Cargo.toml | grep "\-version" | grep -oE $REG
+            NEW=git diff -- Cargo.toml | grep "\+version" | grep -oE $REG
+            echo "::set-output name=OLD::$OLD"
+            echo "::set-output name=NEW::$NEW"
+        - name: Commit changes
+          run: |
+            git add Cargo.toml
+            git commit -m "[Bump] ${{ steps.ver.outputs.OLD }} -> ${{ steps.ver.outputs.NEW }}"
+            git tag v${{ steps.ver.outputs.NEW }}
+            git push origin --tags
+        - name: Publish to crates.io
+          run: |
+            cargo login ${{ secrets.CARGO_TOKEN }}
+            cargo publish
