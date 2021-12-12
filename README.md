@@ -1,7 +1,7 @@
 # create-github-app-token
 
 [![crates.io](https://img.shields.io/crates/v/create-github-app-token?style=for-the-badge)](https://crates.io/crates/create-github-app-token)
-[![docs.rs](https://img.shields.io/docsrs/create-github-app-token?style=for-the-badge)](https://docs.rs.create-github-app-token)
+[![docs.rs](https://img.shields.io/docsrs/create-github-app-token?style=for-the-badge)](https://docs.rs/create-github-app-token)
 ![License](https://img.shields.io/crates/l/create-github-app-token?style=for-the-badge)
 
 This library makes easier to publish GitHub App token.
