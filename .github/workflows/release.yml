@@ -39,6 +39,10 @@ jobs:
           NEW=$(git diff -- Cargo.toml | grep "\+version" | grep -oE $REG)
           echo "::set-output name=OLD::$OLD"
           echo "::set-output name=NEW::$NEW"
+      - name: Setup git
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
       - name: Commit changes
         run: |
           git add Cargo.toml
