@@ -1,4 +1,4 @@
-use crate::errors::{new_error, Error, ErrorKind, Result};
+use crate::errors::{Error, Result};
 use surf::StatusCode;
 
 type SurfResult = std::result::Result<surf::Response, surf::Error>;
@@ -22,9 +22,9 @@ impl ResponseExt for SurfResult {
         }
 
         Err(match status {
-            StatusCode::NotFound => new_error(ErrorKind::ResourceNotFound),
-            StatusCode::Unauthorized => new_error(ErrorKind::UnAuthorized),
-            _ => new_error(ErrorKind::UnknownStatusCode(status)),
+            StatusCode::NotFound => Error::ResourceNotFound,
+            StatusCode::Unauthorized => Error::UnAuthorized,
+            _ => Error::UnknownStatusCode(status),
         })
     }
 }

@@ -1,47 +1,41 @@
 use std::result;
+use thiserror::Error as ThisError;
 
+/// A type alias for `Result<T, create_github_app_token::Error>`
 pub type Result<T> = result::Result<T, Error>;
 
-pub(crate) fn new_error(kind: ErrorKind) -> Error {
-    Error(Box::new(kind))
-}
-
-#[derive(Debug)]
-pub struct Error(Box<ErrorKind>);
-
-#[derive(Debug)]
-pub enum ErrorKind {
+/// The specific type of errors
+#[derive(Debug, ThisError)]
+pub enum Error {
+    /// failed to fetch GitHub App Iinstalltation id
+    #[error("failed to fetch GitHub App Iinstalltation id")]
     InstallationIdNotFound,
+    /// failed to authorize GitHub token
+    #[error("failed to authorize GitHub token")]
     UnAuthorized,
+    /// failed to fetch GitHub App with the id
+    #[error("failed to fetch GitHub App with the id")]
     ResourceNotFound,
-
+    /// received unexpected http status code
+    #[error("received unexpected http status code: {0:?}")]
     UnknownStatusCode(surf::StatusCode),
-    Io(std::io::Error),
-    Jwt(jsonwebtoken::errors::Error),
-    UrlParse(surf::http::url::ParseError),
+
+    /// failed to read the file
+    #[error("failed to read the file: {0:?}")]
+    Io(#[from] std::io::Error),
+    /// failed to encode by JsonWebToken
+    #[error("failed to encode by JsonWebToken: {0:?}")]
+    Jwt(#[from] jsonwebtoken::errors::Error),
+    /// failed to parse url from str
+    #[error("failed to parse url from str: {0:?}")]
+    UrlParse(#[from] surf::http::url::ParseError),
+    /// failed to communicate with GitHub
+    #[error("failed to communicate with GitHub: {0:?}")]
     Http(surf::Error),
-}
-
-impl From<std::io::Error> for Error {
-    fn from(err: std::io::Error) -> Self {
-        new_error(ErrorKind::Io(err))
-    }
-}
-
-impl From<jsonwebtoken::errors::Error> for Error {
-    fn from(err: jsonwebtoken::errors::Error) -> Self {
-        new_error(ErrorKind::Jwt(err))
-    }
-}
-
-impl From<surf::http::url::ParseError> for Error {
-    fn from(err: surf::http::url::ParseError) -> Self {
-        new_error(ErrorKind::UrlParse(err))
-    }
 }
 
 impl From<surf::Error> for Error {
     fn from(err: surf::Error) -> Self {
-        new_error(ErrorKind::Http(err))
+        Error::Http(err)
     }
 }

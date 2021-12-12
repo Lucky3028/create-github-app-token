@@ -100,9 +100,9 @@ where
     let apps = fetch_installed_apps(&jwt).await?;
     let inst_url = apps
         .iter()
-        .find(|app| app.account.login == repository_owner)
+        .find(|app| app.account.login.to_lowercase() == repository_owner.to_lowercase())
         .map(|app| app.access_tokens_url.to_owned())
-        .ok_or_else(|| errors::new_error(errors::ErrorKind::InstallationIdNotFound))?;
+        .ok_or(errors::Error::InstallationIdNotFound)?;
 
     Ok(fetch_token(&jwt, &inst_url).await?)
 }
