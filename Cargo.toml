@@ -6,6 +6,7 @@ license = "MIT"
 authors = ["Lucky3028 <lucky3028@users.noreply.github.com>"]
 description = "This library makes easier to publish GitHub App token."
 repository = "https://github.com/Lucky3028/create-github-app-token"
+documentation = "https://docs.rs/create-github-app-token"
 keywords = ["github", "token", "http"]
 categories = ["api-bindings", "web-programming"]
 readme = "README.md"
