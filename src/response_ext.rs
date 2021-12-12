@@ -4,6 +4,7 @@ use surf::StatusCode;
 type SurfResult = std::result::Result<surf::Response, surf::Error>;
 
 pub(crate) trait ResponseExt {
+    /// Converts from `surf` response result to `crate::Error` by the response's status code.
     fn convert(self) -> Result<surf::Response>;
 }
 

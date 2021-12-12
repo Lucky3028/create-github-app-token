@@ -1,6 +1,7 @@
 use chrono::{DateTime, Timelike, Utc};
 use serde::{Deserialize, Serialize};
 
+/// `Claims` of `JsonWebToken`
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub(crate) struct Claims {
     iat: i64,
