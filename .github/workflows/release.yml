@@ -50,7 +50,9 @@ jobs:
           git tag v${{ steps.ver.outputs.NEW }}
           git push origin main
           git push origin --tags
+      - name: Login to crates.io
+        run: cargo login ${{ secrets.CARGO_TOKEN }}
+      - name: Test publishing
+        run: cargo publish --dry-run
       - name: Publish to crates.io
-        run: |
-          cargo login ${{ secrets.CARGO_TOKEN }}
-          cargo publish
+        run: cargo publish
