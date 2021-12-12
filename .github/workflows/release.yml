@@ -48,6 +48,7 @@ jobs:
           git add Cargo.toml
           git commit -m "[Bump] ${{ steps.ver.outputs.OLD }} -> ${{ steps.ver.outputs.NEW }}"
           git tag v${{ steps.ver.outputs.NEW }}
+          git push origin main
           git push origin --tags
       - name: Publish to crates.io
         run: |
