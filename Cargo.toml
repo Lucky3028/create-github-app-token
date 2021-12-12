@@ -1,6 +1,6 @@
 [package]
 name = "create-github-app-token"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 license = "MIT"
 authors = ["Lucky3028 <lucky3028@users.noreply.github.com>"]
