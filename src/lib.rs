@@ -16,7 +16,7 @@ mod response_ext;
 const ACCEPT_HEADER: &str = "application/vnd.github.v3+json";
 
 /// Generates JsonWebToken.
-fn generate_jwt<T>(app_id: usize, rsa_key_path: T) -> Result<String>
+fn generate_jwt<T>(app_id: u64, rsa_key_path: T) -> Result<String>
 where
     T: AsRef<std::path::Path>,
 {
@@ -95,7 +95,7 @@ async fn fetch_token(token: &str, url: &str) -> Result<Token> {
 /// }
 /// ```
 pub async fn publish_token<T>(
-    app_id: usize,
+    app_id: u64,
     rsa_key_path: T,
     repository_owner: &str,
 ) -> Result<Token>

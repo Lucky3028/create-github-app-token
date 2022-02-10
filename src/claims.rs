@@ -6,11 +6,11 @@ use serde::{Deserialize, Serialize};
 pub(crate) struct Claims {
     iat: i64,
     exp: i64,
-    iss: usize,
+    iss: u64,
 }
 
 impl Claims {
-    pub(crate) fn new(issued_at: DateTime<Utc>, expired_at: DateTime<Utc>, issuer: usize) -> Self {
+    pub(crate) fn new(issued_at: DateTime<Utc>, expired_at: DateTime<Utc>, issuer: u64) -> Self {
         // マイクロ秒を切り捨て
         let issued_at = issued_at
             .date()
@@ -51,7 +51,7 @@ mod test {
         => Claims{ iat: 1609459200, exp: 1609545540, iss: 0 }; "format to date time with milliseconds")]
     #[test_case("2021/01/01 00:00:00.123", "2021/01/01 23:59:00.456", 0, FORMATTER_WITH_MILL_SEC
         => Claims{ iat: 1609459200, exp: 1609545540, iss: 0 }; "milliseconds are forced to be 0")]
-    fn gen_claims(issued_at: &str, expired_at: &str, issuer: usize, formatter: &str) -> Claims {
+    fn gen_claims(issued_at: &str, expired_at: &str, issuer: u64, formatter: &str) -> Claims {
         let issued_at = Utc.datetime_from_str(issued_at, formatter).unwrap();
         let expired_at = Utc.datetime_from_str(expired_at, formatter).unwrap();
 
