@@ -110,5 +110,5 @@ where
         .map(|app| app.access_tokens_url.to_owned())
         .ok_or(errors::Error::InstallationIdNotFound)?;
 
-    Ok(fetch_token(&jwt, &inst_url).await?)
+    fetch_token(&jwt, &inst_url).await
 }
