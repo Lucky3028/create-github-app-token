@@ -15,7 +15,7 @@ readme = "README.md"
 
 [dependencies]
 chrono = { version = "0.4.38", features = ["serde"] }
-jsonwebtoken = "8.3"
+jsonwebtoken = "9.0"
 serde = { version = "1.0.200", features = ["derive"], default-features=false }
 surf = "2.3.2"
 thiserror = "1.0.59"
