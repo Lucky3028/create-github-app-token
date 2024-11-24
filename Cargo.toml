@@ -18,7 +18,7 @@ chrono = { version = "0.4.38", features = ["serde"] }
 jsonwebtoken = "9.0"
 serde = { version = "1.0.200", features = ["derive"], default-features=false }
 surf = "2.3.2"
-thiserror = "1.0.59"
+thiserror = "2.0.0"
 
 [dev-dependencies]
 test-case = "3.2.1"
